@@ -1,18 +1,40 @@
-on: pull_request
-name: Test
+# on: pull_request
+# name: Test
+# jobs:
+#   test:
+#     name: Test
+#     runs-on: macOS-latest
+#     strategy:
+#         matrix:
+#           destination: ['platform=iOS Simulator,OS=12.2,name=iPhone X', 'platform=tvOS Simulator,OS=12.2,name=Apple TV 4K']
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@master
+#       - name: Build and test
+#         run: |
+#           xcodebuild clean test -project GithubActionTest.xcodeproj -scheme GithubActionTest -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+#           bash <(curl -s https://codecov.io/bash)
+#         env: 
+#          destination: ${{ matrix.destination }}
+
+
+name: BuildAndTestCI
+on:
+  pull_request:
+    branches: [master]
+
 jobs:
-  test:
-    name: Test
-    runs-on: macOS-latest
-    strategy:
-        matrix:
-          destination: ['platform=iOS Simulator,OS=12.2,name=iPhone X', 'platform=tvOS Simulator,OS=12.2,name=Apple TV 4K']
+  build-and-test:
+    runs-on: macos-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
-      - name: Build and test
-        run: |
-          xcodebuild clean test -project GithubActionTest.xcodeproj -scheme GithubActionTest -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
-          bash <(curl -s https://codecov.io/bash)
-        env: 
-         destination: ${{ matrix.destination }}
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '12.4'
+
+      - uses: actions/checkout@v2
+
+      - name: Select Xcode
+        run: sudo xcode-select -switch /Applications/Xcode_12.4.app
+
+      - name: Build and Test
+        run:  xcodebuild clean build test -project receiving/receiving.xcodeproj -scheme "receiving" -sdk iphonesimulator -destination "platform=iOS Simulator,OS=12.2,name=iPhone X"
