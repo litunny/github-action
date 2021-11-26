@@ -1,1 +1,21 @@
+name: BuildAndTestCI
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: macos-latest
+    steps:
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '12.4'
+
+      - uses: actions/checkout@v2
+
+      - name: Select Xcode
+        run: sudo xcode-select -switch /Applications/Xcode_12.4.app
+
+      - name: Build and Test
+        run:  xcodebuild clean build test -project GithubActionTest/GithubActionTest.xcodeproj -scheme "GithubActionTest" -sdk iphonesimulator -destination "platform=iOS,name=Any iOS Device"
 
