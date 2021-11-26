@@ -1,21 +1,19 @@
-name: BuildAndTestCI
-on:
-  push:
-    branches: [main]
-
+on: pull_request
+name: Test
 jobs:
-  build-and-test:
-    runs-on: macos-latest
+  test:
+    name: Test
+    runs-on: macOS-latest
+    strategy:
+        matrix:
+          destination: ['platform=iOS Simulator,OS=12.2,name=iPhone X', 'platform=tvOS Simulator,OS=12.2,name=Apple TV 4K']
     steps:
-      - uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '12.4'
-
-      - uses: actions/checkout@v2
-
-      - name: Select Xcode
-        run: sudo xcode-select -switch /Applications/Xcode_12.4.app
-
-      - name: Build and Test
-        run:  xcodebuild clean build test -project GithubActionTest/GithubActionTest.xcodeproj -scheme "GithubActionTest" -sdk iphonesimulator -destination "platform=iOS,name=Any iOS Device"
-
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Build and test
+        run: |
+          cd GitHubActionTest
+          xcodebuild clean test -project GitHubActionTest.xcodeproj -scheme GitHubActionTest -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+          bash <(curl -s https://codecov.io/bash)
+        env: 
+         destination: ${{ matrix.destination }}
