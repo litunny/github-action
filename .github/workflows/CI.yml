@@ -1,7 +1,7 @@
 name: BuildAndTestCI
 on:
-  push:
-    branches: [main]
+  pull_request:
+    branches: [master]
 
 jobs:
   build-and-test:
@@ -17,5 +17,4 @@ jobs:
         run: sudo xcode-select -switch /Applications/Xcode_12.4.app
 
       - name: Build and Test
-        run:  xcodebuild clean build test -project GithubActionTest/GithubActionTest.xcodeproj -scheme "GithubActionTest" -sdk iphonesimulator -destination "platform=iOS,name=Any iOS Device"
-
+        run:  xcodebuild clean build test -project receiving/receiving.xcodeproj -scheme "receiving" -sdk iphonesimulator -destination "platform=iOS Simulator,OS=12.2,name=iPhone X"
