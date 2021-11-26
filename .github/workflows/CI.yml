@@ -16,4 +16,4 @@ jobs:
     - name: Force Xcode 11
       run: sudo xcode-select -switch /Applications/Xcode_11.5.app
     - name: Build
-      run: xcodebuild build -project GithubActionTest.xcodeproj -scheme "GithubActionTest" -destination "platform=iOS Simulator,OS=13.5,name=Any iOS Simulator Device" 
+      run: xcodebuild build -project GithubActionTest.xcodeproj -scheme "GithubActionTest" -destination "platform=iOS Simulator,OS=13.5,name=iPhone 8" 
