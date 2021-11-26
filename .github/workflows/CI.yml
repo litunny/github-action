@@ -12,8 +12,7 @@ jobs:
         uses: actions/checkout@master
       - name: Build and test
         run: |
-          cd GitHubActionTest
-          xcodebuild clean test -project GitHubActionTest.xcodeproj -scheme GitHubActionTest -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+          xcodebuild clean test -project GithubActionTest.xcodeproj -scheme GithubActionTest -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
           bash <(curl -s https://codecov.io/bash)
         env: 
          destination: ${{ matrix.destination }}
