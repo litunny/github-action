@@ -1,4 +1,4 @@
-name: Swift
+name: BuildAndTestCI
 
 on:
   push:
@@ -22,5 +22,9 @@ jobs:
 
     - name: List Runtimes
       run: xcrun simctl list runtimes
+
+    - name: List iOS Simulator
+      run: xcrun simctl list
+
     - name: Build
-      run: xcodebuild build -project GithubActionTest.xcodeproj -scheme "GithubActionTest" -destination "platform=iOS Simulator,OS=14.4,name=iPad Air (3rd generation)" 
+      run: xcodebuild clean build -project GithubActionTest.xcodeproj -scheme "GithubActionTest" -destination "platform=iOS Simulator,OS=14.4,name=iPad Air (3rd generation)" 
