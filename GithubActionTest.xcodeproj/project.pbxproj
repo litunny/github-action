@@ -100,8 +100,8 @@
 			children = (
 				04F045AD2750EA6200D5BA30 /* GithubActionTestApp.swift */,
 				04F045AF2750EA6200D5BA30 /* ContentView.swift */,
-				04F045B12750EA6700D5BA30 /* Assets.xcassets */,
 				04F045B62750EA6700D5BA30 /* Persistence.swift */,
+				04F045B12750EA6700D5BA30 /* Assets.xcassets */,
 				04F045B82750EA6700D5BA30 /* GithubActionTest.xcdatamodeld */,
 				04F045B32750EA6700D5BA30 /* Preview Content */,
 			);
@@ -445,7 +445,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -475,7 +475,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
